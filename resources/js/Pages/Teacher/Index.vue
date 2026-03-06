@@ -40,7 +40,6 @@ const headers = [
             </v-card-title>
 
             <v-divider />
-            <pre>{{ teachers }}</pre>
         </v-card>
     </v-container>
 </template>
