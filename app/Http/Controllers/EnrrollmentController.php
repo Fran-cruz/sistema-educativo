@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Enrollment;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class EnrrollmentController extends Controller
 {
@@ -12,7 +13,14 @@ class EnrrollmentController extends Controller
      */
     public function index()
     {
-        //
+        $enrollments = Enrollment::with([
+            'student',
+            'course'
+        ])->get();
+
+        return Inertia::render('Enrollment/Index', [
+            'enrollments' => $enrollments
+        ]);
     }
 
     /**

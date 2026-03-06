@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Grade;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class GradeController extends Controller
 {
@@ -12,7 +13,11 @@ class GradeController extends Controller
      */
     public function index()
     {
-        //
+        $grades = Grade::with('enrollment')->get();
+
+        return Inertia::render('Grade/Index', [
+            'grades' => $grades
+        ]);
     }
 
     /**

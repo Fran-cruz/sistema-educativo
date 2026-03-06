@@ -4,15 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
-
+use Inertia\Inertia;
 class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
-        //
+        $students = Student::with('faculty')
+            ->select('id', 'student_code', 'name', 'email', 'semester', 'status', 'faculty_id')
+            ->get();
+
+        return Inertia::render('Student/Index', [
+            'students' => $students
+        ]);
     }
 
     /**

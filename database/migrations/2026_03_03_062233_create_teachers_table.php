@@ -18,10 +18,6 @@ return new class extends Migration
             $table->date('hire_date');
             $table->enum('status', ['active', 'inactive'])
                 ->default('active');
-//            $table->foreignId('user_id')
-//                ->unique()
-//                ->constrained()
-//                ->onDelete('cascade');
 
             $table->timestamps();
             $table->softDeletes();

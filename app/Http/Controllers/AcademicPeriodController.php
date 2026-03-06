@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AcademicPeriod;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class AcademicPeriodController extends Controller
 {
@@ -12,7 +13,12 @@ class AcademicPeriodController extends Controller
      */
     public function index()
     {
-        //
+        $periods = AcademicPeriod::all();
+
+        return Inertia::render('AcademicPeriod/Index', [
+            'periods' => $periods
+        ]);
+
     }
 
     /**
