@@ -1,62 +1,88 @@
 <script setup>
-import { Head } from '@inertiajs/vue3'
-import { ref, computed } from 'vue'
+import {Head, Link} from '@inertiajs/vue3'
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 
 const props = defineProps({
     courses: Array
 })
 
-const search = ref('')
-
-const headers = [
-    { title: 'ID', key: 'id' },
-    { title: 'Code', key: 'code' },
-    { title: 'Name', key: 'name' },
-    { title: 'Credits', key: 'credits' },
-    { title: 'Teacher', key: 'teacher.specialty' },
-    { title: 'Period', key: 'academic_period.name' },
-    { title: 'Capacity', key: 'capacity' },
-    { title: 'Status', key: 'status' },
-    { title: 'Actions', key: 'actions', sortable: false },
+const teachers = [
+    {name:'Leo'},
+    {name:'Tomas'},
+    {name:'Mateo'},
+    {name:'Francisco'},
+    {name:'Juan'},
+    {name:'Gabriel'},
+    {name:'Daniel'},
+    {name:'Ernesto'},
+    {name:'Alex'}
 ]
-
-const items = computed(() =>
-    props.courses.map(course => ({
-        ...course,
-        teacher: course.teacher ?? { specialty: 'N/A' },
-        academic_period: course.academic_period ?? { name: 'N/A' }
-    }))
-)
 </script>
 
 <template>
+    <AuthenticatedLayout>
+        <Head title="Courses" />
 
-    <Head title="Courses"/>
+        <v-container>
+            <v-card elevation="3">
 
-    <v-container>
-        <v-card elevation="3">
+                <v-card-title class="text-h5">
+                    Lista de Cursos
+                </v-card-title>
 
-            <v-card-title class="d-flex justify-space-between align-center">
+                <v-divider />
 
-                <span class="text-h5">Courses</span>
+                <div class="justify-center">
+                    <v-table>
+                        <thead>
+                        <tr>
+                            <th class="text-left">CODIGO</th>
+                            <th class="text-left">NOMBRE</th>
+                            <th class="text-left">DESCRIPCION</th>
+                            <th class="text-left">CREDITOS</th>
+                            <th class="text-left">DOCENTE</th>
+                            <th class="text-left">PERIODO</th>
+                            <th class="text-left">CAPACIDAD</th>
+                            <th class="text-left">ESTADO</th>
+                        </tr>
+                        </thead>
 
-                <v-text-field
-                    v-model="search"
-                    label="Search"
-                    density="compact"
-                    variant="outlined"
-                    hide-details
-                    clearable
-                    style="max-width:250px"
-                />
+                        <tbody>
+                        <tr
+                            v-for="i in courses"
+                            :key="courses.id"
+                        >
+                            <td>{{ i.code }}</td>
+                            <td>{{ i.name }}</td>
+                            <td>{{ i.description }}</td>
+                            <td>{{ i.credits }}</td>
+                            <td>{{ teachers[i.id % teachers.length].name }}</td>
+                            <td>{{ i.academic_period_id }}</td>
+                            <td>{{ i.capacity }}</td>
+                            <td>
 
-            </v-card-title>
+                                <v-chip
+                                    :color="courses.status === 'active' ? 'green' : 'red'"
+                                    size="small"
+                                    variant="tonal"
+                                >
+                                    {{ i.status }}
+                                </v-chip>
 
-            <v-divider/>
+                            </td>
+                        </tr>
+                        </tbody>
 
-            <pre>{{ courses }}</pre>
-
-        </v-card>
-    </v-container>
-
+                    </v-table>
+                </div>
+                <div class="justify-center">
+                    <Link :href="route('courses.create')">
+                        <v-col cols="12" md="4" sm="6">
+                            <v-btn rounded="lg" size="x-large" block>Agregar Cursos</v-btn>
+                        </v-col>
+                    </Link>
+                </div>
+            </v-card>
+        </v-container>
+    </AuthenticatedLayout>
 </template>

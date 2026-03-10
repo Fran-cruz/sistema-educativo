@@ -47,6 +47,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/course', [CourseController::class, 'index'])->name('courses.index');
     Route::get('/enrollment', [EnrrollmentController::class, 'index'])->name('enrollments.index');
     Route::get('/grade', [GradeController::class, 'index'])->name('grades.index');
+
+    Route::get('/teacher/create', [TeacherController::class, 'create'])->name('teachers.create');
+    Route::get('/course/create', [CourseController::class, 'create'])->name('courses.create');
+    Route::get('/enrollment/create', [EnrrollmentController::class, 'create'])->name('enrollments.create');
 });
 
 require __DIR__.'/auth.php';

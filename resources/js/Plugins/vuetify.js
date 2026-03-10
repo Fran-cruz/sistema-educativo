@@ -1,3 +1,4 @@
+// Vuetify configuration
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
@@ -9,9 +10,7 @@ export default createVuetify({
     directives,
     icons: {
         defaultSet: 'mdi',
-        sets: {
-            mdi,
-        },
+        sets: { mdi },
     },
     theme: {
         defaultTheme: 'light',
@@ -19,9 +18,9 @@ export default createVuetify({
             light: {
                 dark: false,
                 colors: {
-                    primary: 'rgba(38,61,125,0.75)', // Verde principal
-                    secondary: '#f59e0b', // Amarillo secundario
-                    accent: '#416a9b',
+                    primary: '#22c55e',
+                    secondary: '#fbbf24',
+                    accent: '#22c55e',
                     error: '#ef4444',
                     info: '#3b82f6',
                     success: '#10b981',
@@ -31,7 +30,6 @@ export default createVuetify({
                     'on-primary': '#ffffff',
                     'on-secondary': '#1f2937',
                     'on-background': '#2d3748',
-
                     'on-surface': '#2d3748',
                     'grey-50': '#f9fafb',
                     'grey-100': '#f3f4f6',
@@ -43,7 +41,7 @@ export default createVuetify({
                     'grey-700': '#374151',
                     'grey-800': '#1f2937',
                     'grey-900': '#111827',
-                }
+                },
             },
             dark: {
                 dark: true,
@@ -61,8 +59,8 @@ export default createVuetify({
                     'on-secondary': '#1f2937',
                     'on-background': '#f9fafb',
                     'on-surface': '#f9fafb',
-                }
-            }
-        }
-    }
+                },
+            },
+        },
+    },
 })

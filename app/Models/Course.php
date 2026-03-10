@@ -20,4 +20,5 @@ class Course extends Model
     {
         return $this->belongsToMany(Student::class, 'enrollments');
     }
+
 }

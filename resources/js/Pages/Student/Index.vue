@@ -1,54 +1,63 @@
 <script setup>
 import { Head } from '@inertiajs/vue3'
-import { ref, computed } from 'vue'
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 
 const props = defineProps({
     students: Array
 })
-
-const search = ref('')
-
-const headers = [
-    { title: 'ID', key: 'id' },
-    { title: 'Code', key: 'student_code' },
-    { title: 'Name', key: 'name' },
-    { title: 'Email', key: 'email' },
-    { title: 'Semester', key: 'semester' },
-    { title: 'Status', key: 'status' },
-    { title: 'Faculty', key: 'faculty.name' },
-    { title: 'Actions', key: 'actions', sortable: false },
-]
-
-const items = computed(() =>
-    props.students.map(student => ({
-        ...student,
-        faculty: student.faculty ?? { name: 'N/A' }
-    }))
-)
 </script>
 
 <template>
-    <Head title="Students" />
+    <AuthenticatedLayout>
+        <Head title="Students" />
 
-    <v-container>
-        <v-card elevation="3">
-            <v-card-title class="d-flex justify-space-between align-center">
-                <span class="text-h5">Students List</span>
+        <v-container>
+            <v-card elevation="3">
 
-                <v-text-field
-                    v-model="search"
-                    label="Search"
-                    density="compact"
-                    variant="outlined"
-                    hide-details
-                    clearable
-                    style="max-width: 250px"
-                />
-            </v-card-title>
+                <v-card-title class="text-h5">
+                    Students List
+                </v-card-title>
 
-            <v-divider />
+                <v-divider />
 
-            <pre>{{ students }}</pre>
-        </v-card>
-    </v-container>
+                <div class="justify-center">
+                    <v-table>
+                        <thead>
+                        <tr>
+                            <th class="text-left">ID</th>
+                            <th class="text-left">Student Code</th>
+                            <th class="text-left">Name</th>
+                            <th class="text-left">Email</th>
+                            <th class="text-left">Status</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr
+                            v-for="i in students"
+                            :key="students.id"
+                        >
+                            <td>{{ i.id }}</td>
+                            <td>{{ i.student_code }}</td>
+                            <td>{{ i.name }}</td>
+                            <td>{{ i.email }}</td>
+                            <td>
+
+                                <v-chip
+                                    :color="student.status === 'active' ? 'green' : 'red'"
+                                    size="small"
+                                    variant="tonal"
+                                >
+                                    {{ student.status }}
+                                </v-chip>
+
+                            </td>
+                        </tr>
+                        </tbody>
+
+                    </v-table>
+                </div>
+            </v-card>
+        </v-container>
+    </AuthenticatedLayout>
 </template>

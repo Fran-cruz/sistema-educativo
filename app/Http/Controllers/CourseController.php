@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AcademicPeriod;
 use App\Models\Course;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -13,13 +15,11 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::with([
-            'teacher',
-            'academicPeriod'
-        ])->get();
+        $courses = Course::all();
+
 
         return Inertia::render('Course/Index', [
-            'courses' => $courses
+            'courses' => $courses,
         ]);
     }
 
@@ -28,7 +28,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Course/Create');
     }
 
     /**

@@ -28,7 +28,7 @@ class EnrrollmentController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Enrollment/Create');
     }
 
     /**

@@ -1,51 +1,53 @@
 <script setup>
 import { Head } from '@inertiajs/vue3'
-import { ref } from 'vue'
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 
 const props = defineProps({
     grades: Array
 })
-
-const search = ref('')
-
-const headers = [
-    { title: 'ID', key: 'id' },
-    { title: 'Title', key: 'title' },
-    { title: 'Score', key: 'score' },
-    { title: 'Weight', key: 'weight' },
-    { title: 'Date', key: 'evaluation_date' },
-    { title: 'Enrollment', key: 'enrollment_id' },
-]
 </script>
 
 <template>
+    <AuthenticatedLayout>
+        <Head title="Students" />
 
-    <Head title="Grades"/>
+        <v-container>
+            <v-card elevation="3">
 
-    <v-container>
+                <v-card-title class="text-h5">
+                    Grades List
+                </v-card-title>
 
-        <v-card elevation="3">
+                <v-divider />
 
-            <v-card-title class="d-flex justify-space-between align-center">
+                <div class="justify-center">
+                    <v-table>
+                        <thead>
+                        <tr>
+                            <th class="text-left">ID</th>
+                            <th class="text-left">Title</th>
+                            <th class="text-left">Description</th>
+                            <th class="text-left">Score</th>
+                            <th class="text-left">Weight</th>
+                        </tr>
+                        </thead>
 
-                <span class="text-h5">Grades</span>
+                        <tbody>
+                        <tr
+                            v-for="i in grades"
+                            :key="grades.id"
+                        >
+                            <td>{{ i.id }}</td>
+                            <td>{{ i.title }}</td>
+                            <td>{{ i.description }}</td>
+                            <td>{{ i.score }}</td>
+                            <td>{{ i.weight }}</td>
+                        </tr>
+                        </tbody>
 
-                <v-text-field
-                    v-model="search"
-                    label="Search"
-                    density="compact"
-                    variant="outlined"
-                    hide-details
-                    clearable
-                    style="max-width:250px"
-                />
-
-            </v-card-title>
-
-            <v-divider/>
-            <pre>{{ grades }}</pre>
-        </v-card>
-
-    </v-container>
-
+                    </v-table>
+                </div>
+            </v-card>
+        </v-container>
+    </AuthenticatedLayout>
 </template>

@@ -1,45 +1,63 @@
 <script setup>
 import { Head } from '@inertiajs/vue3'
-import { ref } from 'vue'
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 
 const props = defineProps({
     teachers: Array
 })
-
-const search = ref('')
-
-const headers = [
-    { title: 'ID', key: 'id' },
-    { title: 'Employee Code', key: 'employee_code' },
-    { title: 'Specialty', key: 'specialty' },
-    { title: 'Hire Date', key: 'hire_date' },
-    { title: 'Status', key: 'status' },
-    { title: 'Actions', key: 'actions', sortable: false },
-]
 </script>
 
 <template>
+    <AuthenticatedLayout>
     <Head title="Teachers" />
 
     <v-container>
         <v-card elevation="3">
 
-            <v-card-title class="d-flex justify-space-between align-center">
-                <span class="text-h5">Teachers List</span>
-
-                <v-text-field
-                    v-model="search"
-                    label="Search"
-                    density="compact"
-                    variant="outlined"
-                    hide-details
-                    clearable
-                    style="max-width: 250px"
-                />
-
+            <v-card-title class="text-h5">
+                Teachers List
             </v-card-title>
 
             <v-divider />
+
+            <div class="justify-center">
+                <v-table>
+                <thead>
+                <tr>
+                    <th class="text-left">ID</th>
+                    <th class="text-left">Employee Code</th>
+                    <th class="text-left">Specialty</th>
+                    <th class="text-left">Hire Date</th>
+                    <th class="text-left">Status</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr
+                    v-for="teacher in teachers"
+                    :key="teacher.id"
+                >
+                    <td>{{ teacher.id }}</td>
+                    <td>{{ teacher.employee_code }}</td>
+                    <td>{{ teacher.specialty }}</td>
+                    <td>{{ teacher.hire_date }}</td>
+                    <td>
+
+                        <v-chip
+                            :color="teacher.status === 'active' ? 'green' : 'red'"
+                            size="small"
+                            variant="tonal"
+                        >
+                            {{ teacher.status }}
+                        </v-chip>
+
+                    </td>
+                </tr>
+                </tbody>
+
+            </v-table>
+            </div>
         </v-card>
     </v-container>
+    </AuthenticatedLayout>
 </template>
