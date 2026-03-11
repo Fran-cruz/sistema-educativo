@@ -5,6 +5,11 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 const props = defineProps({
     students: Array
 })
+
+export default {
+    name: 'Estudiantes',
+    components: {AuthenticatedLayout, Link}
+}
 </script>
 
 <template>
